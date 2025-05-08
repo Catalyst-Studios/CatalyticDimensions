@@ -1,4 +1,4 @@
-package com.catalyst.CatalystDimensions;
+package com.catalyst.catalystdimensions;
 
 import org.slf4j.Logger;
 
@@ -39,7 +39,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class CatalystDimensions
 {
     // Define mod id in a common place for everything to reference
-    public static final String MODID = "CatalystDimensions";
+    public static final String MODID = "catalystdimensions";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
     // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace

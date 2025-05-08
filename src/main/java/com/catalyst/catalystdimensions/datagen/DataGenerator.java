@@ -1,7 +1,7 @@
-package com.catalyst.CatalystDimensions.datagen;
+package com.catalyst.catalystdimensions.datagen;
 
 
-import com.catalyst.CatalystDimensions.CatalystDimensions;
+import com.catalyst.catalystdimensions.CatalystDimensions;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.SubscribeEvent;

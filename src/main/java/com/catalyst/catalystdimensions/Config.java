@@ -1,4 +1,4 @@
-package com.catalyst.CatalystDimensions;
+package com.catalyst.catalystdimensions;
 
 import java.util.List;
 import java.util.Set;

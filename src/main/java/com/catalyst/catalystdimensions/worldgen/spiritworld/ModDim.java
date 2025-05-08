@@ -1,6 +1,6 @@
-package com.catalyst.CatalystDimensions.worldgen.spiritworld;
+package com.catalyst.catalystdimensions.worldgen.spiritworld;
 
-import com.catalyst.CatalystDimensions.CatalystDimensions;
+import com.catalyst.catalystdimensions.CatalystDimensions;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -18,7 +18,9 @@ import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
 
+
 import java.util.List;
+import java.util.Optional;
 import java.util.OptionalLong;
 
 public class ModDim {
@@ -28,8 +30,6 @@ public class ModDim {
             ResourceLocation.fromNamespaceAndPath(CatalystDimensions.MODID, "catalystdim"));
     public static final ResourceKey<DimensionType> CATALYST_DIM_TYPE = ResourceKey.create(Registries.DIMENSION_TYPE,
             ResourceLocation.fromNamespaceAndPath(CatalystDimensions.MODID, "catalystdim_type"));
-
-
 
 
 
@@ -58,9 +58,11 @@ public class ModDim {
         HolderGetter<DimensionType> dimTypes = context.lookup(Registries.DIMENSION_TYPE);
         HolderGetter<NoiseGeneratorSettings> noiseGenSettings = context.lookup(Registries.NOISE_SETTINGS);
 
+
+
         NoiseBasedChunkGenerator wrappedChunkGenerator = new NoiseBasedChunkGenerator(
                 new FixedBiomeSource(biomeRegistry.getOrThrow(Biomes.JAGGED_PEAKS)),
-                noiseGenSettings.getOrThrow(NoiseGeneratorSettings.AMPLIFIED));
+                noiseGenSettings.getOrThrow(NoiseGeneratorSettings.FLOATING_ISLANDS));
 
         NoiseBasedChunkGenerator noiseBasedChunkGenerator = new NoiseBasedChunkGenerator(
                 MultiNoiseBiomeSource.createFromList(
@@ -74,9 +76,11 @@ public class ModDim {
                                         Climate.parameters(0.4F, 0.3F, 0.2F, 0.1F, 0.0F, 0.0F, 0.0F), biomeRegistry.getOrThrow(Biomes.DARK_FOREST))
 
                         ))),
-                noiseGenSettings.getOrThrow(NoiseGeneratorSettings.AMPLIFIED));
+                noiseGenSettings.getOrThrow(NoiseGeneratorSettings.FLOATING_ISLANDS));
 
     LevelStem stem = new LevelStem(dimTypes.getOrThrow(ModDim.CATALYST_DIM_TYPE), noiseBasedChunkGenerator);
 
         context.register(CATALYSTDIM_KEY, stem);
-}}
+
+    }
+}

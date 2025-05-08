@@ -1,6 +1,6 @@
-package com.catalyst.CatalystDimensions.worldgen.spiritworld;
+package com.catalyst.catalystdimensions.worldgen.spiritworld;
 
-import com.catalyst.CatalystDimensions.CatalystDimensions;
+import com.catalyst.catalystdimensions.CatalystDimensions;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -15,8 +15,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlac
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
-
-import java.util.List;
 
 public class ModConfiguredFeatures {
     public static  final ResourceKey<ConfiguredFeature<?, ?>> OLD_GROWTH_KEY = registerKey("oldgrowth");
