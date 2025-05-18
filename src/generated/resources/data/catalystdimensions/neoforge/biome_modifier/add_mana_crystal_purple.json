@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "catalystdimensions:crystal_fields_biome",
+  "features": "catalystdimensions:mana_crystal_purple_placed",
+  "step": "vegetal_decoration"
+}
