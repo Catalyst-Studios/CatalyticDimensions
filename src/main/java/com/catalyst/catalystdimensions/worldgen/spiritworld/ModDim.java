@@ -1,6 +1,7 @@
 package com.catalyst.catalystdimensions.worldgen.spiritworld;
 
 import com.catalyst.catalystdimensions.CatalystDimensions;
+import com.catalyst.catalystdimensions.worldgen.spiritworld.biomes.ModBiomes;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -20,7 +21,6 @@ import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
 
 import java.util.List;
-import java.util.Optional;
 import java.util.OptionalLong;
 
 public class ModDim {
@@ -59,22 +59,21 @@ public class ModDim {
         HolderGetter<NoiseGeneratorSettings> noiseGenSettings = context.lookup(Registries.NOISE_SETTINGS);
 
 
-
-        NoiseBasedChunkGenerator wrappedChunkGenerator = new NoiseBasedChunkGenerator(
-                new FixedBiomeSource(biomeRegistry.getOrThrow(Biomes.JAGGED_PEAKS)),
-                noiseGenSettings.getOrThrow(NoiseGeneratorSettings.FLOATING_ISLANDS));
-
         NoiseBasedChunkGenerator noiseBasedChunkGenerator = new NoiseBasedChunkGenerator(
                 MultiNoiseBiomeSource.createFromList(
-                        new Climate.ParameterList<>(List.of(Pair.of(
-                                        Climate.parameters(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F), biomeRegistry.getOrThrow(Biomes.JAGGED_PEAKS)),
+                        new Climate.ParameterList<>(List.of(
+                                // Link Crystal Fields with flatNoise
                                 Pair.of(
-                                        Climate.parameters(0.1F, 0.2F, 0.0F, 0.2F, 0.0F, 0.0F, 0.0F), biomeRegistry.getOrThrow(Biomes.BIRCH_FOREST)),
+                                        Climate.parameters(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F),
+                                        biomeRegistry.getOrThrow(ModBiomes.CRYSTAL_FIELDS_BIOME)),  // Custom biome
+                                // Link Jagged Peaks with mountainNoise
                                 Pair.of(
-                                        Climate.parameters(0.3F, 0.6F, 0.1F, 0.1F, 0.0F, 0.0F, 0.0F), biomeRegistry.getOrThrow(Biomes.OCEAN)),
+                                        Climate.parameters(0.3F, 0.6F, 0.1F, 0.1F, 0.0F, 0.0F, 0.0F),
+                                        biomeRegistry.getOrThrow(Biomes.JAGGED_PEAKS)),  // Jagged Peaks replaced for mountain islands
+                                // Link Lush Caves with cavernNoise
                                 Pair.of(
-                                        Climate.parameters(0.4F, 0.3F, 0.2F, 0.1F, 0.0F, 0.0F, 0.0F), biomeRegistry.getOrThrow(Biomes.DARK_FOREST))
-
+                                        Climate.parameters(0.1F, 0.2F, 0.0F, 0.3F, 0.2F, 0.2F, 0.0F),
+                                        biomeRegistry.getOrThrow(Biomes.PLAINS))
                         ))),
                 noiseGenSettings.getOrThrow(NoiseGeneratorSettings.FLOATING_ISLANDS));
 
