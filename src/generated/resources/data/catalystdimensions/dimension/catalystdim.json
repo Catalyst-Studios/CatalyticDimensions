@@ -9,36 +9,24 @@
           "biome": "catalystdimensions:crystal_fields_biome",
           "parameters": {
             "continentalness": 0.0,
-            "depth": 0.0,
+            "depth": 0.2,
             "erosion": 0.0,
             "humidity": 0.0,
             "offset": 0.0,
-            "temperature": 0.0,
-            "weirdness": 0.0
-          }
-        },
-        {
-          "biome": "minecraft:jagged_peaks",
-          "parameters": {
-            "continentalness": 0.1,
-            "depth": 0.0,
-            "erosion": 0.1,
-            "humidity": 0.6,
-            "offset": 0.0,
-            "temperature": 0.3,
+            "temperature": -0.3,
             "weirdness": 0.0
           }
         },
         {
           "biome": "minecraft:plains",
           "parameters": {
-            "continentalness": 0.2,
-            "depth": 1.0,
-            "erosion": 0.3,
-            "humidity": 0.2,
+            "continentalness": 0.0,
+            "depth": -0.2,
+            "erosion": 0.1,
+            "humidity": 0.6,
             "offset": 0.0,
-            "temperature": 0.1,
-            "weirdness": 1.0
+            "temperature": 0.3,
+            "weirdness": 0.0
           }
         }
       ]

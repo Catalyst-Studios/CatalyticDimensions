@@ -1,4 +1,4 @@
-package com.catalyst.catalystdimensions.worldgen.spiritworld;
+package com.catalyst.catalystdimensions.worldgen.spiritworld.features;
 
 import com.catalyst.catalystdimensions.CatalystDimensions;
 import com.catalyst.catalystdimensions.worldgen.trees.blobfoliage.CrystalFoliagePlacer;
@@ -40,7 +40,6 @@ public class ModConfiguredFeatures {
                 new CrystalFoliagePlacer(1, UniformInt.of(8, 32)),
                 new TwoLayersFeatureSize(10, 1, 8)
         ).build());
-
 
     }
     public static  ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {

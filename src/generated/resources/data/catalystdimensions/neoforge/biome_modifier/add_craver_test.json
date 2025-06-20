@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_carvers",
+  "biomes": "catalystdimensions:crystal_fields_biome",
+  "carvers": "catalystdimensions:large_cave_configured",
+  "step": "air"
+}

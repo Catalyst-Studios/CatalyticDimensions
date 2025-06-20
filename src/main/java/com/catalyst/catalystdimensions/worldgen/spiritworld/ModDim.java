@@ -11,12 +11,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
+import com.catalyst.catalystdimensions.worldgen.noise.ModNoiseGen;
+
 
 
 
@@ -44,9 +47,9 @@ public class ModDim {
                 1.0, // coordinateScale
                 true, // bedWorks
                 false, // respawnAnchorWorks
-                0, // minY
-                256, // height
-                256, // logicalHeight
+                -64, // minY
+                384, // height
+                384, // logicalHeight
                 BlockTags.INFINIBURN_OVERWORLD, // infiniburn
                 BuiltinDimensionTypes.OVERWORLD_EFFECTS, // effectsLocation
                 1.0f, // ambientLight
@@ -59,23 +62,20 @@ public class ModDim {
         HolderGetter<NoiseGeneratorSettings> noiseGenSettings = context.lookup(Registries.NOISE_SETTINGS);
 
 
+
         NoiseBasedChunkGenerator noiseBasedChunkGenerator = new NoiseBasedChunkGenerator(
                 MultiNoiseBiomeSource.createFromList(
                         new Climate.ParameterList<>(List.of(
                                 // Link Crystal Fields with flatNoise
                                 Pair.of(
-                                        Climate.parameters(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F),
+                                        Climate.parameters(-0.3F, 0.0F, 0.0F, 0.0F, 0.2F, 0.0F, 0.0F),
                                         biomeRegistry.getOrThrow(ModBiomes.CRYSTAL_FIELDS_BIOME)),  // Custom biome
                                 // Link Jagged Peaks with mountainNoise
                                 Pair.of(
-                                        Climate.parameters(0.3F, 0.6F, 0.1F, 0.1F, 0.0F, 0.0F, 0.0F),
-                                        biomeRegistry.getOrThrow(Biomes.JAGGED_PEAKS)),  // Jagged Peaks replaced for mountain islands
-                                // Link Lush Caves with cavernNoise
-                                Pair.of(
-                                        Climate.parameters(0.1F, 0.2F, 0.0F, 0.3F, 0.2F, 0.2F, 0.0F),
+                                        Climate.parameters(0.3F, 0.6F, 0.0F, 0.1F, -0.2F, 0.0F, 0.0F),
                                         biomeRegistry.getOrThrow(Biomes.PLAINS))
                         ))),
-                noiseGenSettings.getOrThrow(NoiseGeneratorSettings.FLOATING_ISLANDS));
+                noiseGenSettings.getOrThrow(ModNoiseGen.CUSTOM_FLOATING_ISLANDS));
 
     LevelStem stem = new LevelStem(dimTypes.getOrThrow(ModDim.CATALYST_DIM_TYPE), noiseBasedChunkGenerator);
 

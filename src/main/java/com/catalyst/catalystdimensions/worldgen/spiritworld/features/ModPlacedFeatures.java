@@ -1,4 +1,4 @@
-package com.catalyst.catalystdimensions.worldgen.spiritworld;
+package com.catalyst.catalystdimensions.worldgen.spiritworld.features;
 
 import com.catalyst.catalystdimensions.CatalystDimensions;
 import net.minecraft.core.Holder;
@@ -19,7 +19,6 @@ import java.util.stream.Stream;
 public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> OLD_GROWTH_PLACED_KEY = registerKey("oldgrowth_placed");
     public static final ResourceKey<PlacedFeature> MANA_CRYSTAL_PURPLE_PLACED_KEY = registerKey("mana_crystal_purple_placed");
-
 
     public static void  bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeature = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -45,6 +44,10 @@ public class ModPlacedFeatures {
                 ).toList()
         );
     }
+
+
+
+    
     private static  ResourceKey<PlacedFeature> registerKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(CatalystDimensions.MODID, name));
     }

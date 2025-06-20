@@ -1,7 +1,11 @@
 package com.catalyst.catalystdimensions;
 
+
+
+import com.catalyst.catalystdimensions.worldgen.spiritworld.carvers.ModWorldCarversRegistry;
 import com.catalyst.catalystdimensions.worldgen.trees.blobfoliage.ModFoliagePlacers;
 import com.catalyst.catalystdimensions.worldgen.trees.trunks.ModTrunkPlacers;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -45,6 +49,9 @@ public class CatalystDimensions {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    public static final DeferredRegister<WorldCarver<?>> CARVERS =
+            DeferredRegister.create(Registries.CARVER, MODID);
+
 
     public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
     public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
@@ -60,22 +67,22 @@ public class CatalystDimensions {
             }).build());
 
     public CatalystDimensions(IEventBus modEventBus, ModContainer modContainer) {
-        modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(this::addCreative);
-
+        // Proper mod content registration
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
+        ModWorldCarversRegistry.CARVERS.register(modEventBus);
 
         // Register custom trunk and foliage placers
         ModTrunkPlacers.TRUNK_PLACERS.register(modEventBus);
         ModFoliagePlacers.FOLIAGE_PLACERS.register(modEventBus);
 
-        // Register custom DensityFunctionTypes
-
         NeoForge.EVENT_BUS.register(this);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
+        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::addCreative);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
