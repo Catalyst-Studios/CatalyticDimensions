@@ -2,7 +2,10 @@ package com.catalyst.catalystdimensions;
 
 
 
-import com.catalyst.catalystdimensions.worldgen.spiritworld.carvers.ModWorldCarversRegistry;
+import com.catalyst.catalystdimensions.worldgen.carvers.ModWorldCarversRegistry;
+import com.catalyst.catalystdimensions.worldgen.features.customfeatures.ModFeaturesRegistry;
+import com.catalyst.catalystdimensions.worldgen.structures.STStructurePlacements;
+import com.catalyst.catalystdimensions.worldgen.structures.STStructures;
 import com.catalyst.catalystdimensions.worldgen.trees.blobfoliage.ModFoliagePlacers;
 import com.catalyst.catalystdimensions.worldgen.trees.trunks.ModTrunkPlacers;
 import net.minecraft.world.level.levelgen.carver.WorldCarver;
@@ -73,9 +76,16 @@ public class CatalystDimensions {
         CREATIVE_MODE_TABS.register(modEventBus);
         ModWorldCarversRegistry.CARVERS.register(modEventBus);
 
-        // Register custom trunk and foliage placers
+        // Register custom tree trunk
         ModTrunkPlacers.TRUNK_PLACERS.register(modEventBus);
+        //register custom tree foliage
         ModFoliagePlacers.FOLIAGE_PLACERS.register(modEventBus);
+        // register custom features
+        ModFeaturesRegistry.FEATURES.register(modEventBus);
+        //register structures
+        STStructures.DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
+        STStructurePlacements.DEFERRED_REGISTRY_STRUCTURE_PLACEMENT_TYPE.register(modEventBus);
+
 
         NeoForge.EVENT_BUS.register(this);
 
@@ -83,6 +93,7 @@ public class CatalystDimensions {
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreative);
+
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

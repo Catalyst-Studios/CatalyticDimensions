@@ -1,4 +1,4 @@
-package com.catalyst.catalystdimensions.worldgen.spiritworld.carvers;
+package com.catalyst.catalystdimensions.worldgen.carvers;
 
 import com.catalyst.catalystdimensions.CatalystDimensions;
 import net.minecraft.core.Holder;

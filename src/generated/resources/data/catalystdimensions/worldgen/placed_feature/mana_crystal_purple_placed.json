@@ -1,12 +1,24 @@
 {
-  "feature": "catalystdimensions:manacrystalpurple",
+  "feature": "catalystdimensions:crystal",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 16
+      "chance": 5
     },
     {
       "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 320
+        },
+        "min_inclusive": {
+          "absolute": 128
+        }
+      }
     },
     {
       "type": "minecraft:count",
@@ -18,7 +30,7 @@
             "weight": 9
           },
           {
-            "data": 1,
+            "data": 3,
             "weight": 1
           }
         ]

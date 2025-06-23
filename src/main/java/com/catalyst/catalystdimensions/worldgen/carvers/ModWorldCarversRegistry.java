@@ -1,6 +1,6 @@
-package com.catalyst.catalystdimensions.worldgen.spiritworld.carvers;
+package com.catalyst.catalystdimensions.worldgen.carvers;
 
-import com.catalyst.catalystdimensions.worldgen.spiritworld.carvers.customcarvers.LargeCaveCarver;
+import com.catalyst.catalystdimensions.worldgen.carvers.customcarvers.LargeCaveCarver;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.carver.CaveCarverConfiguration;
 import net.minecraft.world.level.levelgen.carver.WorldCarver;

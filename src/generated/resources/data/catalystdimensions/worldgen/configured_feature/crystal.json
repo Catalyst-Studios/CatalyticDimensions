@@ -1,0 +1,66 @@
+{
+  "type": "catalystdimensions:crystal_feature",
+  "config": {
+    "base_branch_length": 20,
+    "base_branch_width": 4,
+    "branch_length_randomness": 10,
+    "branch_width_randomness": 2,
+    "materials": [
+      {
+        "core": {
+          "Name": "minecraft:purple_stained_glass"
+        },
+        "shell": {
+          "Name": "minecraft:pink_stained_glass"
+        }
+      },
+      {
+        "core": {
+          "Name": "minecraft:green_stained_glass"
+        },
+        "shell": {
+          "Name": "minecraft:lime_stained_glass"
+        }
+      },
+      {
+        "core": {
+          "Name": "minecraft:blue_stained_glass"
+        },
+        "shell": {
+          "Name": "minecraft:light_blue_stained_glass"
+        }
+      }
+    ],
+    "max_branches": 8,
+    "min_branches": 4,
+    "not_replaceable": {
+      "not_replaceable": [
+        {
+          "Name": "minecraft:dirt"
+        },
+        {
+          "Name": "minecraft:grass_block",
+          "Properties": {
+            "snowy": "false"
+          }
+        },
+        {
+          "Name": "minecraft:stone"
+        },
+        {
+          "Name": "minecraft:gravel"
+        },
+        {
+          "Name": "minecraft:granite"
+        },
+        {
+          "Name": "minecraft:andesite"
+        },
+        {
+          "Name": "minecraft:diorite"
+        }
+      ]
+    },
+    "taper_exponent": 1.2
+  }
+}

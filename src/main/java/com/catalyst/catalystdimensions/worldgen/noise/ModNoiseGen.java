@@ -39,7 +39,7 @@ public class ModNoiseGen {
                 BlendedNoise.createUnseeded(0.4, 0.25, 400.0, 250.0, 4)
         );
         DensityFunction base3DNoiseInverted = DensityFunctions.mul(base3DNoise, DensityFunctions.constant(-1.0));
-        DensityFunction verticalFade = DensityFunctions.yClampedGradient(64, 160, -1, 1);
+        DensityFunction verticalFade = DensityFunctions.yClampedGradient(64, 140, -1, 1); //layer seperation
         DensityFunction terrainBlob = DensityFunctions.add(base3DNoiseInverted, verticalFade);
         DensityFunction clamped = DensityFunctions.rangeChoice(terrainBlob, -1., 1.0, DensityFunctions.constant(-1.0), DensityFunctions.constant(1.0));
         DensityFunction finalTerrain = DensityFunctions.mul(clamped, DensityFunctions.constant(1.2));
@@ -110,7 +110,7 @@ public class ModNoiseGen {
         context.register(
                 CUSTOM_FLOATING_ISLANDS,
                 new NoiseGeneratorSettings(
-                        new NoiseSettings(-64, 384, 2, 1),
+                        new NoiseSettings(-64, 368, 2, 1),
                         Blocks.STONE.defaultBlockState(),
                         Blocks.AIR.defaultBlockState(),
                         router,

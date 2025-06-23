@@ -39,17 +39,17 @@ public class ModDim {
 
     public static void bootstrapType(BootstrapContext<DimensionType> context) {
         context.register(CATALYST_DIM_TYPE, new DimensionType(
-                OptionalLong.of(12000), // fixedTime
-                false, // hasSkylight
-                false, // hasCeiling
-                false, // ultraWarm
-                false, // natural
-                1.0, // coordinateScale
-                true, // bedWorks
-                false, // respawnAnchorWorks
-                -64, // minY
-                384, // height
-                384, // logicalHeight
+                OptionalLong.of(12000),
+                true,
+                false,
+                false,
+                true,
+                1.0,
+                true,
+                false,
+                -64,
+                384,
+                384,
                 BlockTags.INFINIBURN_OVERWORLD, // infiniburn
                 BuiltinDimensionTypes.OVERWORLD_EFFECTS, // effectsLocation
                 1.0f, // ambientLight

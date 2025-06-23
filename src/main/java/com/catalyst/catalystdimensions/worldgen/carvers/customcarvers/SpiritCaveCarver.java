@@ -1,4 +1,4 @@
-package com.catalyst.catalystdimensions.worldgen.spiritworld.carvers.customcarvers;
+package com.catalyst.catalystdimensions.worldgen.carvers.customcarvers;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
