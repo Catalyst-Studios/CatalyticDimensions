@@ -1,12 +1,5 @@
 {
   "values": [
-    "catalystdimensions:black_opal_block",
-    "catalystdimensions:raw_black_opal_block",
-    "catalystdimensions:black_opal_ore",
-    "catalystdimensions:black_opal_deepslate_ore",
-    "catalystdimensions:black_opal_end_ore",
-    "catalystdimensions:black_opal_nether_ore",
-    "catalystdimensions:black_opal_stairs",
-    "catalystdimensions:black_opal_slab"
+    "catalystdimensions:magic_block"
   ]
 }

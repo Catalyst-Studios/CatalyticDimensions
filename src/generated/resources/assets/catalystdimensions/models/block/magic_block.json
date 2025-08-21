@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "catalystdimensions:block/black_opal_nether_ore"
+    "all": "catalystdimensions:block/magic_block"
   }
 }

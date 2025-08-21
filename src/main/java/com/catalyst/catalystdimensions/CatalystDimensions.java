@@ -75,9 +75,7 @@ public class CatalystDimensions {
 
     public CatalystDimensions(IEventBus modEventBus, ModContainer modContainer) {
         // Proper mod content registration
-        BLOCKS.register(modEventBus);
-        ITEMS.register(modEventBus);
-        CREATIVE_MODE_TABS.register(modEventBus);
+
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
@@ -100,7 +98,8 @@ public class CatalystDimensions {
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
         modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(this::addCreative);
+        ModBlocks.bootstrap();
+
 
     }
 
@@ -116,10 +115,7 @@ public class CatalystDimensions {
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
     }
 
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
-            event.accept(EXAMPLE_BLOCK_ITEM);
-    }
+
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {

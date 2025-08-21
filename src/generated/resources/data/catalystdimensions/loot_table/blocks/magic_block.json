@@ -26,21 +26,11 @@
                   }
                 }
               ],
-              "name": "catalystdimensions:black_opal_ore"
+              "name": "catalystdimensions:magic_block"
             },
             {
               "type": "minecraft:item",
-              "functions": [
-                {
-                  "enchantment": "minecraft:fortune",
-                  "formula": "minecraft:ore_drops",
-                  "function": "minecraft:apply_bonus"
-                },
-                {
-                  "function": "minecraft:explosion_decay"
-                }
-              ],
-              "name": "catalystdimensions:raw_black_opal"
+              "name": "minecraft:diorite"
             }
           ]
         }
@@ -48,5 +38,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "catalystdimensions:blocks/black_opal_ore"
+  "random_sequence": "catalystdimensions:blocks/magic_block"
 }

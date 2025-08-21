@@ -1,5 +1,6 @@
 package com.catalyst.catalystdimensions.datagen;
 
+import com.catalyst.catalystdimensions.block.ModBlocks;
 import com.catalyst.catalystdimensions.worldgen.noise.*;
 import com.catalyst.catalystdimensions.CatalystDimensions;
 

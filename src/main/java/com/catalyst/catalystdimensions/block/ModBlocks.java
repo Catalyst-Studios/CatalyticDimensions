@@ -2,78 +2,104 @@ package com.catalyst.catalystdimensions.block;
 
 
 import com.catalyst.catalystdimensions.CatalystDimensions;
+import com.catalyst.catalystdimensions.block.spec.BlockSpec;
+import com.catalyst.catalystdimensions.datagen.ModBlockLootTableProvider;
 import com.catalyst.catalystdimensions.item.ModItems;
-import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.BlockSetType;
-import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
-public class ModBlocks {
+
+public final class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(CatalystDimensions.MODID);
 
-    public static final DeferredBlock<Block> BLACK_OPAL_BLOCK = registerBlock("black_opal_block",
-            () -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
-    public static final DeferredBlock<Block> RAW_BLACK_OPAL_BLOCK = registerBlock("raw_black_opal_block",
-            () -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
 
-    public static final DeferredBlock<Block> BLACK_OPAL_ORE = registerBlock("black_opal_ore",
-            () -> new DropExperienceBlock(UniformInt.of(2, 5),
-                    BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
-    public static final DeferredBlock<Block> BLACK_OPAL_DEEPSLATE_ORE = registerBlock("black_opal_deepslate_ore",
-            () -> new DropExperienceBlock(UniformInt.of(3, 6),
-                    BlockBehaviour.Properties.of().strength(6f).requiresCorrectToolForDrops()));
-    public static final DeferredBlock<Block> BLACK_OPAL_END_ORE = registerBlock("black_opal_end_ore",
-            () -> new DropExperienceBlock(UniformInt.of(3, 8),
-                    BlockBehaviour.Properties.of().strength(5f).requiresCorrectToolForDrops()));
-    public static final DeferredBlock<Block> BLACK_OPAL_NETHER_ORE = registerBlock("black_opal_nether_ore",
-            () -> new DropExperienceBlock(UniformInt.of(1, 7),
-                    BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops()));
+// Keep in Items to create BlockItems here (so spec stays central)
+// ModItems.ITEMS exists in your project already.
 
 
-    public static final DeferredBlock<Block> BLACK_OPAL_STAIRS = registerBlock("black_opal_stairs",
-            () -> new StairBlock(ModBlocks.BLACK_OPAL_BLOCK.get().defaultBlockState(),
-                    BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
-    public static final DeferredBlock<Block> BLACK_OPAL_SLAB = registerBlock("black_opal_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
-
-    public static final DeferredBlock<Block> BLACK_OPAL_PRESSURE_PLATE = registerBlock("black_opal_pressure_plate",
-            () -> new PressurePlateBlock(BlockSetType.IRON, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
-    public static final DeferredBlock<Block> BLACK_OPAL_BUTTON = registerBlock("black_opal_button",
-            () -> new ButtonBlock(BlockSetType.IRON, 10, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noCollission()));
-
-    public static final DeferredBlock<Block> BLACK_OPAL_FENCE = registerBlock("black_opal_fence",
-            () -> new FenceBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
-    public static final DeferredBlock<Block> BLACK_OPAL_FENCE_GATE = registerBlock("black_opal_fence_gate",
-            () -> new FenceGateBlock(WoodType.ACACIA, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
-    public static final DeferredBlock<Block> BLACK_OPAL_WALL = registerBlock("black_opal_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
-
-    public static final DeferredBlock<Block> BLACK_OPAL_DOOR = registerBlock("black_opal_door",
-            () -> new DoorBlock(BlockSetType.IRON, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noOcclusion()));
-    public static final DeferredBlock<Block> BLACK_OPAL_TRAPDOOR = registerBlock("black_opal_trapdoor",
-            () -> new TrapDoorBlock(BlockSetType.IRON, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noOcclusion()));
+    public static final List<Entry> ALL = new ArrayList<>();
 
 
-    private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
-        DeferredBlock<T> toReturn = BLOCKS.register(name, block);
-        registerBlockItem(name, toReturn);
-        return toReturn;
+    public record Entry(BlockSpec spec, DeferredBlock<Block> block, net.neoforged.neoforge.registries.DeferredHolder<Item, ? extends Item> item) {}
+
+
+    public static void register(IEventBus bus){
+        BLOCKS.register(bus);
     }
 
-    private static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block) {
-        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+
+    // Helper to register a spec and wire BlockItem automatically
+    public static Entry register(BlockSpec spec){
+        DeferredBlock<Block> blockRO = BLOCKS.register(spec.name, spec.factory);
+        var itemRO = spec.generateBlockItem
+                ? ModItems.ITEMS.register(spec.name, () -> {
+            Item.Properties props = new Item.Properties();
+            if (spec.itemProps != null) spec.itemProps.accept(props);
+            return new BlockItem(blockRO.get(), props);
+        })
+                : null;
+        Entry e = new Entry(spec, blockRO, itemRO);
+        ALL.add(e);
+        return e;
     }
 
-    public static void register(IEventBus eventBus) {
-        BLOCKS.register(eventBus);
+
+    // ---- Define blocks here ----
+    public static void bootstrap(){
+// Example: a simple storage block with default cubeAll, dropSelf, auto lang
+        register(BlockSpec.builder("black_opal_block",
+                        () -> new Block(BlockBehaviour.Properties.of()
+                                .strength(5.0F, 6.0F)
+                                .requiresCorrectToolForDrops()
+                                .sound(SoundType.STONE)))
+
+
+                .build());
+
+// Example new block: “magic_block”
+        register(BlockSpec.builder("magic_block",
+                        () -> new Block(BlockBehaviour.Properties.of()
+                                .strength(3.0F, 6.0F)
+                                .requiresCorrectToolForDrops()
+                                .sound(SoundType.AMETHYST)))
+                .blockTag(BlockTags.MINEABLE_WITH_PICKAXE) // add NEEDS_*_TOOL if you want to gate it
+                .loot(p -> ((ModBlockLootTableProvider) p).modSilkOrItem(
+                        ModBlocks.blockRef("magic_block"),
+                        Blocks.DIORITE
+                ))
+                // If the texture has cutouts or glass-like pixels, also set render type:
+                // .renderType(RenderType.cutout())
+                // As above, blockstates/model/loot are inferred:
+                //   - BlockStates: cubeAll("magic_block")
+                //   - Item model: item/magic_block -> parent block/magic_block
+                //   - Loot: dropSelf(magic_block)
+                .build());
+
+
+
+    }
+    public static net.minecraft.world.level.block.Block blockRef(String name) {
+        for (var e : ALL) {
+            if (e.spec().name.equals(name)) return e.block().get();
+        }
+        throw new IllegalArgumentException("Unknown block: " + name);
     }
 }
