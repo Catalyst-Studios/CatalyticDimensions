@@ -1,7 +1,7 @@
 package com.catalyst.catalystdimensions.worldgen.spiritworld;
 
 import com.catalyst.catalystdimensions.CatalystDimensions;
-import com.catalyst.catalystdimensions.worldgen.spiritworld.biomes.ModBiomes;
+import com.catalyst.catalystdimensions.worldgen.biomes.ModBiomes;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -11,7 +11,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.dimension.DimensionType;
@@ -66,14 +65,21 @@ public class ModDim {
         NoiseBasedChunkGenerator noiseBasedChunkGenerator = new NoiseBasedChunkGenerator(
                 MultiNoiseBiomeSource.createFromList(
                         new Climate.ParameterList<>(List.of(
-                                // Link Crystal Fields with flatNoise
+                                //crystal fields
                                 Pair.of(
-                                        Climate.parameters(-0.3F, 0.0F, 0.0F, 0.0F, 0.2F, 0.0F, 0.0F),
-                                        biomeRegistry.getOrThrow(ModBiomes.CRYSTAL_FIELDS_BIOME)),  // Custom biome
-                                // Link Jagged Peaks with mountainNoise
+                                        Climate.parameters(-0.3F, 0.0F, -0.0F, 0.0F, 0.8F, 0.0F, 0.0F),
+                                        biomeRegistry.getOrThrow(ModBiomes.CRYSTAL_FIELDS_BIOME)),
+                                //sanguine depths
                                 Pair.of(
-                                        Climate.parameters(0.3F, 0.6F, 0.0F, 0.1F, -0.2F, 0.0F, 0.0F),
-                                        biomeRegistry.getOrThrow(Biomes.PLAINS))
+                                        Climate.parameters(0.3F, 0.4F, -0.0F, 0.0F, -0.8F, 0.0F, 0.0F),
+                                        biomeRegistry.getOrThrow(ModBiomes.SANGUINE_DEPTHS_BIOME)),
+                                Pair.of(
+                                        Climate.parameters(0.6F, 0.4F, 0.0F, 0.0F, 0.4F, 0.0F, 0.0F),
+                                        biomeRegistry.getOrThrow(Biomes.LUSH_CAVES)),
+
+                                Pair.of(
+                                        Climate.parameters(0.0F, 0.0F, 0.0F, 0.0F, -0.4F, 0.0F, 0.0F),
+                                        biomeRegistry.getOrThrow(Biomes.DEEP_DARK))
                         ))),
                 noiseGenSettings.getOrThrow(ModNoiseGen.CUSTOM_FLOATING_ISLANDS));
 

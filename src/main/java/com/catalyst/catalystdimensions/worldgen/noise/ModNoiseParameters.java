@@ -1,13 +1,9 @@
 package com.catalyst.catalystdimensions.worldgen.noise;
 
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-
-import net.minecraft.world.level.levelgen.DensityFunction;
-import net.minecraft.world.level.levelgen.DensityFunctions;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 import java.util.List;
@@ -42,13 +38,13 @@ public class ModNoiseParameters {
         context.register(ISLAND_SHAPE, new NormalNoise.NoiseParameters(1, 1.0, 0.5));
         context.register(ISLAND_ELEVATION, new NormalNoise.NoiseParameters(2, 1.0, 1.0));
         context.register(BIOME_NOISE, new NormalNoise.NoiseParameters(1, 1.0, 1.0));
-        int firstOctave = -7;
-        context.register( TEMPERATURE, new NormalNoise.NoiseParameters( -10 + firstOctave, 1.5, 0.0, 1.0, 0.0, 0.0, 0.0));
+        int firstOctave = -6;
+        context.register( TEMPERATURE, new NormalNoise.NoiseParameters( -10 + firstOctave, 1.5, 1.0, 1.0, 0.0, 0.0, 0.0));
         context.register( VEGETATION, new NormalNoise.NoiseParameters(-8 + firstOctave, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0));
         context.register( CONTINENTALNESS, new NormalNoise.NoiseParameters(-9 + firstOctave, 1.0, 1.0, 2.0, 2.0, 2.0, 1.0, 1.0, 1.0, 1.0));
         context.register( EROSION, new NormalNoise.NoiseParameters(-9 + firstOctave, 1.0, 1.0, 0.0, 1.0, 1.0));
-        context.register(SHIFT, new NormalNoise.NoiseParameters(-3, 1.0, 0.0, 0.0, 0.0));
-        context.register(DEPTH, new NormalNoise.NoiseParameters(-8, List.of(1.0, 1.0)));
+        context.register(SHIFT, new NormalNoise.NoiseParameters(-6, 1.0, 0.0, 0.0, 0.0));
+        context.register(DEPTH, new NormalNoise.NoiseParameters(-10, List.of(1.0, -1.0)));
 
 
 

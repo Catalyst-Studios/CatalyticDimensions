@@ -1,0 +1,7 @@
+// 1.21.1	2025-08-21T13:02:59.4767713	Tags for minecraft:block mod id catalystdimensions
+889152124f7f78e1035e4b019cb8dbea8066fe42 data/minecraft/tags/block/fences.json
+8439c4327173d7b7fbc927fc1a32b09d1ed69637 data/minecraft/tags/block/fence_gates.json
+4cac8e977228515e4e1d517475adec82254949b9 data/minecraft/tags/block/mineable/pickaxe.json
+c52495087d570d4c594b7654d99d017021257641 data/minecraft/tags/block/needs_diamond_tool.json
+d0d171156608e90958e6e0d97b6a6423d2c29f84 data/minecraft/tags/block/needs_iron_tool.json
+3630551aef13532ecf475a4e399362ed704d8610 data/minecraft/tags/block/walls.json

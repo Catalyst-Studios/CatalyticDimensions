@@ -4,8 +4,7 @@ import com.catalyst.catalystdimensions.worldgen.noise.*;
 import com.catalyst.catalystdimensions.CatalystDimensions;
 
 import com.catalyst.catalystdimensions.worldgen.spiritworld.*;
-import com.catalyst.catalystdimensions.worldgen.spiritworld.biomes.ModBiomeModifiers;
-import com.catalyst.catalystdimensions.worldgen.spiritworld.biomes.ModBiomes;
+import com.catalyst.catalystdimensions.worldgen.biomes.ModBiomes;
 import com.catalyst.catalystdimensions.worldgen.features.ModConfiguredFeatures;
 import com.catalyst.catalystdimensions.worldgen.features.ModPlacedFeatures;
 import com.catalyst.catalystdimensions.worldgen.carvers.ModConfiguredWorldCarvers;
@@ -26,7 +25,6 @@ public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
             .add(Registries.DIMENSION_TYPE, ModDim::bootstrapType)
             .add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, ModPlacedFeatures::bootstrap)
-            .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::bootstrap)
             .add(Registries.BIOME, ModBiomes::bootstrap)
             .add(Registries.LEVEL_STEM, ModDim::bootstrapStem)
             .add(Registries.NOISE, ModNoiseParameters::bootstrap)

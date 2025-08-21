@@ -61,6 +61,6 @@
         }
       ]
     },
-    "taper_exponent": 1.2
+    "taper_exponent": 0.8
   }
 }

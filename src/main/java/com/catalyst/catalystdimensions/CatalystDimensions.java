@@ -2,6 +2,9 @@ package com.catalyst.catalystdimensions;
 
 
 
+import com.catalyst.catalystdimensions.block.ModBlocks;
+import com.catalyst.catalystdimensions.item.ModCreativeModeTabs;
+import com.catalyst.catalystdimensions.item.ModItems;
 import com.catalyst.catalystdimensions.worldgen.carvers.ModWorldCarversRegistry;
 import com.catalyst.catalystdimensions.worldgen.features.customfeatures.ModFeaturesRegistry;
 import com.catalyst.catalystdimensions.worldgen.structures.STStructurePlacements;
@@ -44,6 +47,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+
 @Mod(CatalystDimensions.MODID)
 public class CatalystDimensions {
     public static final String MODID = "catalystdimensions";
@@ -74,7 +78,11 @@ public class CatalystDimensions {
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
+        ModBlocks.register(modEventBus);
+        ModItems.register(modEventBus);
+        ModCreativeModeTabs.register(modEventBus);
         ModWorldCarversRegistry.CARVERS.register(modEventBus);
+
 
         // Register custom tree trunk
         ModTrunkPlacers.TRUNK_PLACERS.register(modEventBus);
@@ -96,6 +104,7 @@ public class CatalystDimensions {
 
     }
 
+
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("HELLO FROM COMMON SETUP");
 
@@ -116,6 +125,8 @@ public class CatalystDimensions {
     public void onServerStarting(ServerStartingEvent event) {
         LOGGER.info("HELLO from server starting");
     }
+
+
 
     @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {

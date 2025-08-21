@@ -6,10 +6,10 @@
       "type": "minecraft:multi_noise",
       "biomes": [
         {
-          "biome": "catalystdimensions:crystal_fields_biome",
+          "biome": "catalystdimensions:crystal_fields",
           "parameters": {
             "continentalness": 0.0,
-            "depth": 0.2,
+            "depth": 0.8,
             "erosion": 0.0,
             "humidity": 0.0,
             "offset": 0.0,
@@ -18,14 +18,38 @@
           }
         },
         {
-          "biome": "minecraft:plains",
+          "biome": "catalystdimensions:sanguine_depths",
           "parameters": {
             "continentalness": 0.0,
-            "depth": -0.2,
-            "erosion": 0.1,
-            "humidity": 0.6,
+            "depth": -0.8,
+            "erosion": 0.0,
+            "humidity": 0.4,
             "offset": 0.0,
             "temperature": 0.3,
+            "weirdness": 0.0
+          }
+        },
+        {
+          "biome": "minecraft:lush_caves",
+          "parameters": {
+            "continentalness": 0.0,
+            "depth": 0.4,
+            "erosion": 0.0,
+            "humidity": 0.4,
+            "offset": 0.0,
+            "temperature": 0.6,
+            "weirdness": 0.0
+          }
+        },
+        {
+          "biome": "minecraft:deep_dark",
+          "parameters": {
+            "continentalness": 0.0,
+            "depth": -0.4,
+            "erosion": 0.0,
+            "humidity": 0.0,
+            "offset": 0.0,
+            "temperature": 0.0,
             "weirdness": 0.0
           }
         }

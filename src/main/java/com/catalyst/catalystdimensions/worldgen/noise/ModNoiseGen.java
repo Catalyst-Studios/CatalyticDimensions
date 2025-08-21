@@ -1,21 +1,16 @@
 
 package com.catalyst.catalystdimensions.worldgen.noise;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.data.worldgen.SurfaceRuleData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.*;
-import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.synth.BlendedNoise;
-import com.catalyst.catalystdimensions.worldgen.spiritworld.surfacerules.ModSurfaceRules;
+import com.catalyst.catalystdimensions.worldgen.surfacerules.ModSurfaceRules;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 import java.util.List;
@@ -66,18 +61,18 @@ public class ModNoiseGen {
         // ========== VEGETATION END ==========
 
         // ========== CONTINENTS ==========
-        Holder<NormalNoise.NoiseParameters> continentsNoise = noiseRegistry.getOrThrow(ModNoiseParameters.VEGETATION);
+        Holder<NormalNoise.NoiseParameters> continentsNoise = noiseRegistry.getOrThrow(ModNoiseParameters.CONTINENTALNESS);
         DensityFunction continents = DensityFunctions.shiftedNoise2d(shiftFunction, shiftFunction, 1.0, continentsNoise);
         // ========== CONTINENTS END ==========
 
         // ========== EROSION ==========
-        Holder<NormalNoise.NoiseParameters> erosionNoise = noiseRegistry.getOrThrow(ModNoiseParameters.VEGETATION);
+        Holder<NormalNoise.NoiseParameters> erosionNoise = noiseRegistry.getOrThrow(ModNoiseParameters.EROSION);
         DensityFunction erosion= DensityFunctions.shiftedNoise2d(shiftFunction, shiftFunction, 1.0, erosionNoise);
         // ========== EROSION END ==========
 
         // ========== DEPTH ==========
-        Holder<NormalNoise.NoiseParameters> depthNoise = noiseRegistry.getOrThrow(ModNoiseParameters.VEGETATION);
-        DensityFunction depthclamped = DensityFunctions.yClampedGradient(-64, 320, -1, 1);
+        Holder<NormalNoise.NoiseParameters> depthNoise = noiseRegistry.getOrThrow(ModNoiseParameters.DEPTH);
+        DensityFunction depthclamped = DensityFunctions.yClampedGradient(-64, 320, -1.0, 1.0);
         DensityFunction depth = DensityFunctions.add(DensityFunctions.noise(depthNoise),depthclamped);
 
 
@@ -95,7 +90,7 @@ public class ModNoiseGen {
                 DensityFunctions.zero(), // lava
                 temperature,
                 vegetation,
-                continents,
+                DensityFunctions.zero(),
                 erosion,
                 depth,
                 ridges,
