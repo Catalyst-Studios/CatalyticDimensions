@@ -1,6 +1,7 @@
 package com.catalyst.catalystdimensions.worldgen.features;
 
 import com.catalyst.catalystdimensions.CatalystDimensions;
+import com.catalyst.catalystdimensions.block.ModBlocks;
 import com.catalyst.catalystdimensions.worldgen.features.customfeatures.CrystalFeature;
 import com.catalyst.catalystdimensions.worldgen.features.customfeatures.CrystalFeatureConfiguration;
 
@@ -44,16 +45,16 @@ public class ModConfiguredFeatures {
                         new CrystalFeatureConfiguration(
                                 List.of(                       // Material sets
                                         new CrystalFeatureConfiguration.MaterialSet(
-                                                Blocks.PURPLE_STAINED_GLASS.defaultBlockState(),
-                                                Blocks.PINK_STAINED_GLASS.defaultBlockState()
+                                                ModBlocks.blockRef("purple_crystal_block").defaultBlockState(),
+                                                ModBlocks.blockRef("pink_crystal_block").defaultBlockState()
                                         ),
                                         new CrystalFeatureConfiguration.MaterialSet(
-                                                Blocks.GREEN_STAINED_GLASS.defaultBlockState(),
-                                                Blocks.LIME_STAINED_GLASS.defaultBlockState()
+                                                ModBlocks.blockRef("green_crystal_block").defaultBlockState(),
+                                                ModBlocks.blockRef("lime_crystal_block").defaultBlockState()
                                         ),
                                         new CrystalFeatureConfiguration.MaterialSet(
-                                                Blocks.BLUE_STAINED_GLASS.defaultBlockState(),
-                                                Blocks.LIGHT_BLUE_STAINED_GLASS.defaultBlockState()
+                                                ModBlocks.blockRef("blue_crystal_block").defaultBlockState(),
+                                                ModBlocks.blockRef("light_blue_crystal_block").defaultBlockState()
                                         )
 
                                 ),

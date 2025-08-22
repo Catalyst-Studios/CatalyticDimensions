@@ -1,5 +1,23 @@
 {
   "values": [
+    "catalystdimensions:white_crystal_block",
+    "catalystdimensions:light_gray_crystal_block",
+    "catalystdimensions:gray_crystal_block",
+    "catalystdimensions:black_crystal_block",
+    "catalystdimensions:brown_crystal_block",
+    "catalystdimensions:red_crystal_block",
+    "catalystdimensions:orange_crystal_block",
+    "catalystdimensions:yellow_crystal_block",
+    "catalystdimensions:lime_crystal_block",
+    "catalystdimensions:green_crystal_block",
+    "catalystdimensions:cyan_crystal_block",
+    "catalystdimensions:light_blue_crystal_block",
+    "catalystdimensions:blue_crystal_block",
+    "catalystdimensions:purple_crystal_block",
+    "catalystdimensions:magenta_crystal_block",
+    "catalystdimensions:pink_crystal_block",
+    "catalystdimensions:cog_brass_block",
+    "catalystdimensions:cog_steel_block",
     "catalystdimensions:magic_block"
   ]
 }

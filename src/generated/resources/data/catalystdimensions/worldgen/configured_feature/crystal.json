@@ -8,26 +8,26 @@
     "materials": [
       {
         "core": {
-          "Name": "minecraft:purple_stained_glass"
+          "Name": "catalystdimensions:purple_crystal_block"
         },
         "shell": {
-          "Name": "minecraft:pink_stained_glass"
+          "Name": "catalystdimensions:pink_crystal_block"
         }
       },
       {
         "core": {
-          "Name": "minecraft:green_stained_glass"
+          "Name": "catalystdimensions:green_crystal_block"
         },
         "shell": {
-          "Name": "minecraft:lime_stained_glass"
+          "Name": "catalystdimensions:lime_crystal_block"
         }
       },
       {
         "core": {
-          "Name": "minecraft:blue_stained_glass"
+          "Name": "catalystdimensions:blue_crystal_block"
         },
         "shell": {
-          "Name": "minecraft:light_blue_stained_glass"
+          "Name": "catalystdimensions:light_blue_crystal_block"
         }
       }
     ],

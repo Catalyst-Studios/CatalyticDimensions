@@ -1,4 +1,23 @@
 {
+  "block.catalystdimensions.belt_rubber_block": "Belt Rubber Block",
+  "block.catalystdimensions.black_crystal_block": "Black Crystal Block",
   "block.catalystdimensions.black_opal_block": "Black Opal Block",
-  "block.catalystdimensions.magic_block": "Magic Block"
+  "block.catalystdimensions.blue_crystal_block": "Blue Crystal Block",
+  "block.catalystdimensions.brown_crystal_block": "Brown Crystal Block",
+  "block.catalystdimensions.cog_brass_block": "Cog Brass Block",
+  "block.catalystdimensions.cog_steel_block": "Cog Steel Block",
+  "block.catalystdimensions.cyan_crystal_block": "Cyan Crystal Block",
+  "block.catalystdimensions.gray_crystal_block": "Gray Crystal Block",
+  "block.catalystdimensions.green_crystal_block": "Green Crystal Block",
+  "block.catalystdimensions.light_blue_crystal_block": "Light Blue Crystal Block",
+  "block.catalystdimensions.light_gray_crystal_block": "Light Gray Crystal Block",
+  "block.catalystdimensions.lime_crystal_block": "Lime Crystal Block",
+  "block.catalystdimensions.magenta_crystal_block": "Magenta Crystal Block",
+  "block.catalystdimensions.magic_block": "Magic Block",
+  "block.catalystdimensions.orange_crystal_block": "Orange Crystal Block",
+  "block.catalystdimensions.pink_crystal_block": "Pink Crystal Block",
+  "block.catalystdimensions.purple_crystal_block": "Purple Crystal Block",
+  "block.catalystdimensions.red_crystal_block": "Red Crystal Block",
+  "block.catalystdimensions.white_crystal_block": "White Crystal Block",
+  "block.catalystdimensions.yellow_crystal_block": "Yellow Crystal Block"
 }

@@ -120,6 +120,7 @@ dependencies {
     implementation 'net.neoforged:neoforge:20.4.89-beta' // Use latest from https://maven.neoforged.net/
     implementation  group:'org.spongepowered', name: 'mixin', version: '0.8.5'
     implementation  'com.github.glitchfiend:TerraBlender-neoforge:' + minecraft_version + '-' + terrablender_version
+
 }
 // This block of code expands all declared replace properties in the specified resource targets.
 // A missing property will result in an error. Properties are expanded using ${} Groovy notation.

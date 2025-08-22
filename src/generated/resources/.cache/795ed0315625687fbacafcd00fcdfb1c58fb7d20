@@ -1,2 +1,4 @@
-// 1.21.1	2025-08-21T22:04:35.3431562	Tags for minecraft:block mod id catalystdimensions
-546e529d62ac1bfcedefed4f07992c8ae3b1b243 data/minecraft/tags/block/mineable/pickaxe.json
+// 1.21.1	2025-08-22T21:53:37.2915591	Tags for minecraft:block mod id catalystdimensions
+c2a013911ddf18e3fc930cc4c243a3c694d8fb63 data/minecraft/tags/block/mineable/axe.json
+19549a61bcb0fae252e869837a797b6e7a793531 data/minecraft/tags/block/mineable/pickaxe.json
+ed08bc9f02626f04e934346225df91741d3f26b2 data/minecraft/tags/block/needs_stone_tool.json

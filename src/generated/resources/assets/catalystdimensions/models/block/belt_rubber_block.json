@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "catalystdimensions:block/belt_rubber_block_top",
+    "side": "catalystdimensions:block/belt_rubber_block"
+  }
+}

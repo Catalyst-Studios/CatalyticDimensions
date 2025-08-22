@@ -39,9 +39,11 @@ public final Consumer<Object> loot; // (BlockLootSubProvider)
 public final Consumer<Object> itemModel; // (ItemModelProvider)
 
 
+
 // Extras
 public final String lang; // Display name; null => title-case of name
 public final RenderType renderType; // null => default solid
+public final Integer tintRgb;
 
 
 private BlockSpec(Builder b) {
@@ -56,6 +58,7 @@ this.loot = b.loot;
 this.itemModel = b.itemModel;
 this.lang = b.lang;
 this.renderType = b.renderType;
+this.tintRgb = b.tintRgb;
 }
 
 
@@ -76,11 +79,13 @@ private Consumer<Object> loot = null;
 private Consumer<Object> itemModel = null;
 private String lang = null;
 private RenderType renderType = null;
+private Integer tintRgb = null;
 
 
 private Builder(String name, Supplier<Block> factory){
 this.name = name; this.factory = factory;
 }
+
 public Builder noItem(){ this.generateBlockItem = false; return this; }
 public Builder item(Consumer<Item.Properties> cfg){ this.itemProps = cfg; return this; }
 public Builder blockTag(TagKey<Block> tag){ this.blockTags.add(tag); return this; }
@@ -91,5 +96,6 @@ public Builder itemModel(Consumer<Object> fn){ this.itemModel = fn; return this;
 public Builder lang(String l){ this.lang = l; return this; }
 public Builder render(RenderType r){ this.renderType = r; return this; }
 public BlockSpec build(){ return new BlockSpec(this); }
+public Builder tint(int rgb) { this.tintRgb = rgb; return this; }
 }
 }
