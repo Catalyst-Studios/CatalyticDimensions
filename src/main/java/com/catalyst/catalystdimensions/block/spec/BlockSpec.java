@@ -2,12 +2,12 @@ package com.catalyst.catalystdimensions.block.spec;
 
 
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 
+import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -44,6 +44,8 @@ public final Consumer<Object> itemModel; // (ItemModelProvider)
 public final String lang; // Display name; null => title-case of name
 public final RenderType renderType; // null => default solid
 public final Integer tintRgb;
+public final Connected connected;
+
 
 
 private BlockSpec(Builder b) {
@@ -59,6 +61,8 @@ this.itemModel = b.itemModel;
 this.lang = b.lang;
 this.renderType = b.renderType;
 this.tintRgb = b.tintRgb;
+this.connected   = b.connected;
+
 }
 
 
@@ -68,34 +72,119 @@ return new Builder(name, factory);
 
 
 public static final class Builder {
-private final String name;
-private final Supplier<Block> factory;
-private boolean generateBlockItem = true;
-private Consumer<Item.Properties> itemProps = null;
-private final Set<TagKey<Block>> blockTags = new HashSet<>();
-private final Set<TagKey<Item>> itemTags = new HashSet<>();
-private BiConsumer<Block, Object> blockstates = null;
-private Consumer<Object> loot = null;
-private Consumer<Object> itemModel = null;
-private String lang = null;
-private RenderType renderType = null;
-private Integer tintRgb = null;
+    private final String name;
+    private final Supplier<Block> factory;
+    private boolean generateBlockItem = true;
+    private Consumer<Item.Properties> itemProps = null;
+    private final Set<TagKey<Block>> blockTags = new HashSet<>();
+    private final Set<TagKey<Item>> itemTags = new HashSet<>();
+    private BiConsumer<Block, Object> blockstates = null;
+    private Consumer<Object> loot = null;
+    private Consumer<Object> itemModel = null;
+    private String lang = null;
+    private RenderType renderType = null;
+    private Integer tintRgb = null;
+    private Connected connected;
+
+    private Builder(String name, Supplier<Block> factory) {
+        this.name = name;
+        this.factory = factory;
+    }
+
+    public Builder noItem() {
+        this.generateBlockItem = false;
+        return this;
+    }
+
+    public Builder item(Consumer<Item.Properties> cfg) {
+        this.itemProps = cfg;
+        return this;
+    }
+
+    public Builder blockTag(TagKey<Block> tag) {
+        this.blockTags.add(tag);
+        return this;
+    }
+
+    public Builder itemTag(TagKey<Item> tag) {
+        this.itemTags.add(tag);
+        return this;
+    }
+
+    public Builder blockstates(BiConsumer<Block, Object> fn) {
+        this.blockstates = fn;
+        return this;
+    }
+
+    public Builder loot(Consumer<Object> fn) {
+        this.loot = fn;
+        return this;
+    }
+
+    public Builder itemModel(Consumer<Object> fn) {
+        this.itemModel = fn;
+        return this;
+    }
+
+    public Builder lang(String l) {
+        this.lang = l;
+        return this;
+    }
+
+    public Builder render(RenderType r) {
+        this.renderType = r;
+        return this;
+    }
 
 
-private Builder(String name, Supplier<Block> factory){
-this.name = name; this.factory = factory;
+    public Builder tint(int rgb) {
+        this.tintRgb = rgb;
+        return this;
+    }
+
+    // Enable CTM with a tile size (tiles defaults to 47)
+    public Builder connected(int tileSize, int tiles, @Nullable String textureBase) {
+        this.connected = new Connected(tileSize, tiles, textureBase, true); // default true
+        return this;
+    }
+    public Builder connectedCull(boolean cullInterior) {
+        if (this.connected == null) {
+            throw new IllegalStateException("connectedCull() called before connected()");
+        }
+        this.connected = new Connected(
+                this.connected.tileSize,
+                this.connected.tiles,
+                this.connected.textureBase,
+                cullInterior
+        );
+        return this;
+    }
+
+
+    //Explicitly disable CTM (optional convenience)
+    public Builder noConnected() {
+        this.connected = null;
+        return this;
+    }
+    public BlockSpec build() {
+        return new BlockSpec(this);
+    }
 }
 
-public Builder noItem(){ this.generateBlockItem = false; return this; }
-public Builder item(Consumer<Item.Properties> cfg){ this.itemProps = cfg; return this; }
-public Builder blockTag(TagKey<Block> tag){ this.blockTags.add(tag); return this; }
-public Builder itemTag(TagKey<Item> tag){ this.itemTags.add(tag); return this; }
-public Builder blockstates(BiConsumer<Block, Object> fn){ this.blockstates = fn; return this; }
-public Builder loot(Consumer<Object> fn){ this.loot = fn; return this; }
-public Builder itemModel(Consumer<Object> fn){ this.itemModel = fn; return this; }
-public Builder lang(String l){ this.lang = l; return this; }
-public Builder render(RenderType r){ this.renderType = r; return this; }
-public BlockSpec build(){ return new BlockSpec(this); }
-public Builder tint(int rgb) { this.tintRgb = rgb; return this; }
+
+    public static final class Connected {
+        public final int tileSize;
+        public final int tiles;
+        @Nullable public final String textureBase;
+        public final boolean cullInterior; // NEW
+
+        public Connected(int tileSize, int tiles, @Nullable String textureBase, boolean cullInterior) {
+            this.tileSize = tileSize;
+            this.tiles = tiles;
+            this.textureBase = textureBase;
+            this.cullInterior = cullInterior;
+        }
+    }
+
 }
-}
+

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/block",
+  "cull_interior": true,
+  "loader": "catalystdimensions:ctm",
+  "textures": {
+    "ctm": "catalystdimensions:block/tintable_crystal_base_ctm",
+    "particle": "catalystdimensions:block/tintable_crystal_base_ctm"
+  },
+  "tile_size": 16,
+  "tiles": 47,
+  "tinted": true
+}

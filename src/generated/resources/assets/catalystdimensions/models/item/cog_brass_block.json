@@ -1,3 +1,6 @@
 {
-  "parent": "catalystdimensions:block/cog_brass_block"
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "catalystdimensions:block/cog_brass_block"
+  }
 }

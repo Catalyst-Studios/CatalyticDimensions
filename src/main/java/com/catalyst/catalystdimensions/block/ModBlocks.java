@@ -104,7 +104,7 @@ public final class ModBlocks {
                 .build());
     }
 //tinted blocks
-// ONE block, one color
+// tinted crystal block
 public static void tintable_glass(String name, int rgb) {
     register(BlockSpec.builder(name,
                     () -> new Block(BlockBehaviour.Properties.of()
@@ -113,21 +113,14 @@ public static void tintable_glass(String name, int rgb) {
                             .sound(SoundType.GLASS)))
             .blockTag(BlockTags.MINEABLE_WITH_PICKAXE)
             .render(RenderType.translucent())
-            .blockstates((blk, p) -> ((ModBlockStateProvider) p).modTintedCubeAll(
-                    blk, name, ResourceLocation.fromNamespaceAndPath(CatalystDimensions.MODID,"block/tintable_crystal_base" )
-            ))
             .tint(rgb) // <— the key: push color into the spec
             .loot(p -> ((ModBlockLootTableProvider) p).modDropSelf(ModBlocks.blockRef(name)))
+            .connected(16,47,"tintable_crystal_base")
+            .connectedCull(true)
+
             .build());
 }
 
-    // multiple colors at once (e.g., a palette)
-    public static void tintable_glass_palette(String baseName, int... colors) {
-        for (int c : colors) {
-            String suffix = String.format("%06X", c & 0xFFFFFF).toLowerCase();
-            tintable_glass(baseName + "_" + suffix, c);
-        }
-    }
 
 
 

@@ -1,3 +1,6 @@
 {
-  "parent": "catalystdimensions:block/belt_rubber_block"
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "catalystdimensions:block/belt_rubber_block"
+  }
 }
