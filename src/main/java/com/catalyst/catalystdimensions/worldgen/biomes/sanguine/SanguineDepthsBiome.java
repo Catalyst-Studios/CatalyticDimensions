@@ -25,6 +25,7 @@ public class SanguineDepthsBiome {
         BiomeGenerationSettings.Builder biomeBuilder = new BiomeGenerationSettings.Builder(placedFeatureGetter, carverGetter);
 
         biomeBuilder.addCarver(GenerationStep.Carving.AIR, ModConfiguredWorldCarvers.CARVER_TEST_KEY);
+        biomeBuilder.addCarver(GenerationStep.Carving.AIR, ModConfiguredWorldCarvers.PILLAR_FIELD);
 
 
         return new Biome.BiomeBuilder()

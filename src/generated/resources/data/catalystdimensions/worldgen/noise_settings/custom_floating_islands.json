@@ -76,10 +76,10 @@
           },
           "argument2": {
             "type": "minecraft:y_clamped_gradient",
-            "from_value": -1.0,
-            "from_y": 64,
-            "to_value": 1.0,
-            "to_y": 140
+            "from_value": 1.0,
+            "from_y": 180,
+            "to_value": 0.0,
+            "to_y": 300
           }
         },
         "max_exclusive": 1.0,
@@ -129,10 +129,10 @@
             },
             "argument2": {
               "type": "minecraft:y_clamped_gradient",
-              "from_value": -1.0,
-              "from_y": 64,
-              "to_value": 1.0,
-              "to_y": 140
+              "from_value": 1.0,
+              "from_y": 180,
+              "to_value": 0.0,
+              "to_y": 300
             }
           },
           "max_exclusive": 1.0,
@@ -204,10 +204,10 @@
           },
           "argument2": {
             "type": "minecraft:y_clamped_gradient",
-            "from_value": -1.0,
-            "from_y": 64,
-            "to_value": 1.0,
-            "to_y": 140
+            "from_value": 1.0,
+            "from_y": 180,
+            "to_value": 0.0,
+            "to_y": 300
           }
         },
         "max_exclusive": 1.0,
@@ -240,10 +240,10 @@
           },
           "argument2": {
             "type": "minecraft:y_clamped_gradient",
-            "from_value": -1.0,
-            "from_y": 64,
-            "to_value": 1.0,
-            "to_y": 140
+            "from_value": 1.0,
+            "from_y": 180,
+            "to_value": 0.0,
+            "to_y": 300
           }
         },
         "max_exclusive": 1.0,
@@ -276,10 +276,10 @@
           },
           "argument2": {
             "type": "minecraft:y_clamped_gradient",
-            "from_value": -1.0,
-            "from_y": 64,
-            "to_value": 1.0,
-            "to_y": 140
+            "from_value": 1.0,
+            "from_y": 180,
+            "to_value": 0.0,
+            "to_y": 300
           }
         },
         "max_exclusive": 1.0,

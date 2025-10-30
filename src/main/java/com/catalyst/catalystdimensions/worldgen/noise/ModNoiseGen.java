@@ -34,7 +34,7 @@ public class ModNoiseGen {
                 BlendedNoise.createUnseeded(0.4, 0.25, 400.0, 250.0, 4)
         );
         DensityFunction base3DNoiseInverted = DensityFunctions.mul(base3DNoise, DensityFunctions.constant(-1.0));
-        DensityFunction verticalFade = DensityFunctions.yClampedGradient(64, 140, -1, 1); //layer seperation
+        DensityFunction verticalFade = DensityFunctions.yClampedGradient(180, 300, 1, 0); //layer seperation
         DensityFunction terrainBlob = DensityFunctions.add(base3DNoiseInverted, verticalFade);
         DensityFunction clamped = DensityFunctions.rangeChoice(terrainBlob, -1., 1.0, DensityFunctions.constant(-1.0), DensityFunctions.constant(1.0));
         DensityFunction finalTerrain = DensityFunctions.mul(clamped, DensityFunctions.constant(1.2));
@@ -72,7 +72,7 @@ public class ModNoiseGen {
 
         // ========== DEPTH ==========
         Holder<NormalNoise.NoiseParameters> depthNoise = noiseRegistry.getOrThrow(ModNoiseParameters.DEPTH);
-        DensityFunction depthclamped = DensityFunctions.yClampedGradient(-64, 320, -1.0, 1.0);
+        DensityFunction depthclamped = DensityFunctions.yClampedGradient(-64, 280, -1.0, 1.0);
         DensityFunction depth = DensityFunctions.add(DensityFunctions.noise(depthNoise),depthclamped);
 
 

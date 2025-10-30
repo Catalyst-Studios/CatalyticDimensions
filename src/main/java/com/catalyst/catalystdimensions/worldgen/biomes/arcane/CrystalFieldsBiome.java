@@ -28,6 +28,7 @@ public class CrystalFieldsBiome {
         addFeature(biomeBuilder, GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.CRYSTAL_PLACED_KEY);
         addFeature(biomeBuilder, GenerationStep.Decoration.UNDERGROUND_DECORATION, ModPlacedFeatures.CRYSTAL_PLACED_KEY);
         biomeBuilder.addCarver(GenerationStep.Carving.AIR, ModConfiguredWorldCarvers.LARGE_CAVE_CONFIGURED);
+        biomeBuilder.addCarver(GenerationStep.Carving.AIR, ModConfiguredWorldCarvers.PILLAR_FIELD);
 
 
         return new Biome.BiomeBuilder()

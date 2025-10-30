@@ -1,6 +1,9 @@
 {
   "carvers": {
-    "air": "catalystdimensions:large_cave_configured"
+    "air": [
+      "catalystdimensions:large_cave_configured",
+      "catalystdimensions:pillar_field"
+    ]
   },
   "downfall": 0.0,
   "effects": {

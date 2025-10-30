@@ -69,7 +69,7 @@ public class ModDim {
                                 Pair.of(
                                         Climate.parameters(-0.3F, 0.0F, -0.0F, 0.0F, 0.8F, 0.0F, 0.0F),
                                         biomeRegistry.getOrThrow(ModBiomes.CRYSTAL_FIELDS_BIOME)),
-                                //sanguine depths
+                                // sanguine depths
                                 Pair.of(
                                         Climate.parameters(0.3F, 0.4F, -0.0F, 0.0F, -0.8F, 0.0F, 0.0F),
                                         biomeRegistry.getOrThrow(ModBiomes.SANGUINE_DEPTHS_BIOME)),
