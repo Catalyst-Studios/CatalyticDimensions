@@ -1,5 +1,6 @@
 package com.catalyst.catalystdimensions.client.model.ctm;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;
 
@@ -21,9 +22,7 @@ import org.joml.Vector3f;
 
 public final class CTMBakedModel implements BakedModel {
 
-    private static final String MODID = "catalystdimensions";
-
-    // ModelData keys (unchanged)
+    // ModelData keys
     public static final ModelProperty<BlockAndTintGetter> LEVEL = new ModelProperty<>();
     public static final ModelProperty<BlockPos>           POS   = new ModelProperty<>();
     public static final ModelProperty<BlockState>         SELF  = new ModelProperty<>();
@@ -31,32 +30,41 @@ public final class CTMBakedModel implements BakedModel {
     private static final ModelState IDENTITY = new SimpleModelState(Transformation.identity());
     private static final float UV_EPS = 0.0005f;
 
-    private final TextureAtlasSprite sprite;
+    // Base CTM
+    private final TextureAtlasSprite baseSprite;
+    private final int baseTintIndex;
+
+    // Overlay CTM layers
+    private final List<TextureAtlasSprite> overlaySprites;
+    private final int[] overlayTintIndices;
+
     private final int tileSize;
     private final int tiles;
-    private final int tilesPerRow;
-    private final int tintIndex;
 
-    // NEW: per-block toggle to cull faces touching the same block
+    // Per-block toggle to cull faces touching the same block
     private final boolean cullInterior;
 
-    public CTMBakedModel(TextureAtlasSprite sprite,
+    public CTMBakedModel(TextureAtlasSprite baseSprite,
                          int tileSize,
                          int tiles,
-                         int tintIndex,
-                         boolean cullInterior) { // <-- NEW param
-        this.sprite = sprite;
+                         int baseTintIndex,
+                         boolean cullInterior,
+                         List<TextureAtlasSprite> overlaySprites,
+                         int[] overlayTintIndices) {
+        this.baseSprite = baseSprite;
         this.tileSize = tileSize;
         this.tiles = tiles;
-        this.tintIndex = tintIndex;
-        this.cullInterior = cullInterior; // <-- assign once (final field)
-        int sw = Math.max(1, sprite.contents().width());
-        this.tilesPerRow = Math.max(1, sw / Math.max(1, tileSize));
+        this.baseTintIndex = baseTintIndex;
+        this.cullInterior = cullInterior;
+        this.overlaySprites = overlaySprites != null ? List.copyOf(overlaySprites) : List.of();
+        this.overlayTintIndices = overlayTintIndices != null ? overlayTintIndices.clone() : new int[0];
     }
 
     // Vanilla signature
     @Override
-    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
+    public List<BakedQuad> getQuads(@Nullable BlockState state,
+                                    @Nullable Direction side,
+                                    RandomSource rand) {
         return getQuads(state, side, rand, ModelData.EMPTY, null);
     }
 
@@ -73,14 +81,14 @@ public final class CTMBakedModel implements BakedModel {
         BlockPos pos             = data.get(POS);
         BlockState self          = data.get(SELF);
 
-        // --- NEW: interior-face culling, guarded by toggle ---
+        // interior-face culling
         if (cullInterior && level != null && pos != null && self != null) {
             if (connects(level, pos, self, side)) {
-                return List.of(); // touching same block on this face -> skip the quad entirely
+                return List.of(); // touching same block on this face -> skip entirely
             }
         }
 
-        // CTM neighbor sampling (unchanged)
+        // CTM neighbour sampling
         int idx = 0;
         if (level != null && pos != null && self != null) {
             boolean u  = connects(level, pos, self, up(side));
@@ -93,15 +101,28 @@ public final class CTMBakedModel implements BakedModel {
             boolean dl = d && l && connects(level, pos.relative(down(side)).relative(left(side)), self);
             boolean lu = l && u && connects(level, pos.relative(left(side)).relative(up(side)), self);
 
-            idx = CTMLookup.pick(u, r, d, l, ur, rd, dl, lu);
-            if (idx < 0 || idx >= tiles) idx = 0;
+            // NEW: pass tiles + pos into the 47-tile-aware lookup
+            idx = CTMLookup.pick(u, r, d, l, ur, rd, dl, lu, tiles, pos);
         }
 
-        return List.of(bakeFace(side, idx));
+
+        // Base CTM quad + all overlay CTM quads, sharing the same tile index.
+        // Each sprite clamps the index to its own grid, so 16x16 sprites always use tile 0.
+        List<BakedQuad> out = new ArrayList<>();
+        out.add(bakeFace(baseSprite, baseTintIndex, side, idx));
+        for (int i = 0; i < overlaySprites.size(); i++) {
+            TextureAtlasSprite sprite = overlaySprites.get(i);
+            int tintIndex = (i < overlayTintIndices.length) ? overlayTintIndices[i] : -1;
+            out.add(bakeFace(sprite, tintIndex, side, idx));
+        }
+        return out;
     }
 
     @Override
-    public ModelData getModelData(BlockAndTintGetter level, BlockPos pos, BlockState state, ModelData existing) {
+    public ModelData getModelData(BlockAndTintGetter level,
+                                  BlockPos pos,
+                                  BlockState state,
+                                  ModelData existing) {
         return ModelData.builder()
                 .with(LEVEL, level)
                 .with(POS, pos.immutable())
@@ -109,27 +130,38 @@ public final class CTMBakedModel implements BakedModel {
                 .build();
     }
 
-    // BakedModel boilerplate (unchanged)
-    @Override public TextureAtlasSprite getParticleIcon() { return sprite; }
+    // BakedModel boilerplate
+    @Override public TextureAtlasSprite getParticleIcon() { return baseSprite; }
     @Override public boolean useAmbientOcclusion() { return true; }
     @Override public boolean isGui3d() { return true; }
     @Override public boolean usesBlockLight() { return true; }
     @Override public boolean isCustomRenderer() { return false; }
     @Override public ItemOverrides getOverrides() { return ItemOverrides.EMPTY; }
 
-    // --- quad baking via FaceBakery (unchanged) ---
-    private BakedQuad bakeFace(Direction face, int tileIndex) {
-        int sheetW = sprite.contents().width();
-        int sheetH = sprite.contents().height();
+    // --- quad baking via FaceBakery ---
+    private BakedQuad bakeFace(TextureAtlasSprite sprite,
+                               int tintIndex,
+                               Direction face,
+                               int tileIndex) {
 
-        int col = tileIndex % tilesPerRow;
-        int row = tileIndex / tilesPerRow;
+        int sw = sprite.contents().width();
+        int sh = sprite.contents().height();
 
-        // FaceBakery wants UVs in 0..16 relative to the SPRITE
-        float u0 = 16f * (col * tileSize)        / (float) sheetW;
-        float v0 = 16f * (row * tileSize)        / (float) sheetH;
-        float u1 = 16f * ((col + 1) * tileSize)  / (float) sheetW;
-        float v1 = 16f * ((row + 1) * tileSize)  / (float) sheetH;
+        // Compute a tile grid PER SPRITE.
+        int tilesPerRow   = Math.max(1, sw / Math.max(1, tileSize));
+        int tilesPerCol   = Math.max(1, sh / Math.max(1, tileSize));
+        int maxTilesLocal = tilesPerRow * tilesPerCol;
+
+        // Clamp tile index to this sprite's own range.
+        int localIndex = (maxTilesLocal > 0) ? (tileIndex % maxTilesLocal) : 0;
+
+        int col = localIndex % tilesPerRow;
+        int row = localIndex / tilesPerRow;
+
+        float u0 = 16f * (col * tileSize)       / (float) sw;
+        float v0 = 16f * (row * tileSize)       / (float) sh;
+        float u1 = 16f * ((col + 1) * tileSize) / (float) sw;
+        float v1 = 16f * ((row + 1) * tileSize) / (float) sh;
 
         u0 += UV_EPS; v0 += UV_EPS; u1 -= UV_EPS; v1 -= UV_EPS;
 
@@ -151,11 +183,14 @@ public final class CTMBakedModel implements BakedModel {
         );
     }
 
-    // neighbor helpers (unchanged)
-    private static boolean connects(BlockAndTintGetter lvl, BlockPos p, BlockState self, Direction dir) {
+    // neighbour helpers
+    private static boolean connects(BlockAndTintGetter lvl, BlockPos p,
+                                    BlockState self, Direction dir) {
         return lvl.getBlockState(p.relative(dir)).getBlock() == self.getBlock();
     }
-    private static boolean connects(BlockAndTintGetter lvl, BlockPos p, BlockState self) {
+
+    private static boolean connects(BlockAndTintGetter lvl, BlockPos p,
+                                    BlockState self) {
         return lvl.getBlockState(p).getBlock() == self.getBlock();
     }
 

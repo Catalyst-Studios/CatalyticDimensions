@@ -7,8 +7,6 @@ import com.catalyst.catalystdimensions.datagen.ModBlockLootTableProvider;
 import com.catalyst.catalystdimensions.datagen.ModBlockStateProvider;
 import com.catalyst.catalystdimensions.item.ModItems;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -17,21 +15,16 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 
 public final class ModBlocks {
+
 
 
     public static final DeferredRegister.Blocks BLOCKS =
@@ -120,6 +113,45 @@ public static void tintable_glass(String name, int rgb) {
 
             .build());
 }
+    // 3-layer example block: each layer has its own tint; second layer is marked CTM-style
+    public static void layered_tint_test(String name) {
+        register(BlockSpec.builder(name,
+                        () -> new Block(BlockBehaviour.Properties.of()
+                                .strength(1.5F, 6.0F)
+                                .sound(SoundType.STONE)
+                                .noOcclusion()
+                        ))
+                .blockTag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .render(RenderType.translucent())
+
+                // Use CTM tiling (16x16 tiles, 47 variants), but let the layers
+                // decide which textures are CTM.
+                .connected(16, 47)
+
+                // LAYER 0: base, red tint, CTM
+                .layer(0, "block/stencils/" + name + "_base")
+                .ctm()
+                .tint(0xFF0000)
+                .done()
+
+                // LAYER 10: middle CTM layer, green tint
+                .layer(10, "block/stencils/" + name + "_moss_ctm")
+                .ctm()
+                .tint(0x00FF00)
+                .noItemLayer()
+                .done()
+
+                // LAYER 20: top CTM layer, blue tint
+                .layer(20, "block/stencils/" + name + "_runes")
+                .ctm()
+                .tint(0x0000FF)
+                .noItemLayer()
+                .done()
+
+                .build());
+    }
+
+
 
 
 
@@ -150,6 +182,10 @@ public static void tintable_glass(String name, int rgb) {
         generic_Metal("cog_steel_block");
         //generic logs
         generic_log("belt_rubber_block");
+        //test
+        layered_tint_test("test");
+
+
 
 
 // Example: a simple storage block with default cubeAll, dropSelf, auto lang
@@ -180,6 +216,8 @@ public static void tintable_glass(String name, int rgb) {
                 //   - Item model: item/magic_block -> parent block/magic_block
                 //   - Loot: dropSelf(magic_block)
                 .build());
+
+
 
 
 

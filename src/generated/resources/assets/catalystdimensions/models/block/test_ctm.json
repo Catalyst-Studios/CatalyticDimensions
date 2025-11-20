@@ -1,0 +1,28 @@
+{
+  "parent": "minecraft:block/block",
+  "cull_interior": false,
+  "loader": "catalystdimensions:ctm",
+  "overlay_layers": [
+    {
+      "texture": "ctm",
+      "tintindex": 0
+    },
+    {
+      "texture": "overlay_0",
+      "tintindex": 1
+    },
+    {
+      "texture": "overlay_1",
+      "tintindex": 2
+    }
+  ],
+  "textures": {
+    "ctm": "catalystdimensions:block/stencils/test_base",
+    "overlay_0": "catalystdimensions:block/stencils/test_moss_ctm",
+    "overlay_1": "catalystdimensions:block/stencils/test_runes",
+    "particle": "catalystdimensions:block/stencils/test_base"
+  },
+  "tile_size": 16,
+  "tiles": 47,
+  "tinted": true
+}

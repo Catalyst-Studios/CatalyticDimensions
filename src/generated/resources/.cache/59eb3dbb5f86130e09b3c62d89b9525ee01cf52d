@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-22T21:53:37.2883906	Loot Tables
+// 1.21.1	2025-11-20T18:00:08.1996001	Loot Tables
 2af9d97b045d18bccf5f336bbb39173d5b6ca20f data/catalystdimensions/loot_table/blocks/belt_rubber_block.json
 19fb7cad281b8c2d7c5c6a55e31904b7037a9c20 data/catalystdimensions/loot_table/blocks/black_crystal_block.json
 8ae1c1336435d42470e878396b2acba1fb0771b4 data/catalystdimensions/loot_table/blocks/black_opal_block.json
@@ -18,5 +18,6 @@ b307a07b9bf328d4585e6bdd5cc4b9eadc35c799 data/catalystdimensions/loot_table/bloc
 23503bbd946c95e45cee6d6568a129dd4ead4fac data/catalystdimensions/loot_table/blocks/pink_crystal_block.json
 3812e18d360d08b00b796f33d34779d60a12623b data/catalystdimensions/loot_table/blocks/purple_crystal_block.json
 8b1e81e9971c312450d4c5317f1b8a260c43ba20 data/catalystdimensions/loot_table/blocks/red_crystal_block.json
+ca8b43d94a6d1fcd72464de95a4afb61150f79d3 data/catalystdimensions/loot_table/blocks/test.json
 eccadf3e1c172dc31e5ca842096f55983ffb26b1 data/catalystdimensions/loot_table/blocks/white_crystal_block.json
 99a9c550b284e19b056cd84d867cdb3bf455a0e1 data/catalystdimensions/loot_table/blocks/yellow_crystal_block.json
